@@ -11,3 +11,4 @@ wiki_search_button = driver.find_element("css selector", ".wikipedia-search-butt
 print(wiki_search_button)
 start_button = driver.find_element("class name", "widget-content").find_element("tag name", "button")
 print(start_button)
+driver.close()
