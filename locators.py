@@ -10,6 +10,7 @@ def is_find_element(*args) ->list:
     for elem in args:
         element = driver.find_element(*elem)
         element_list.append(element)
+    driver.close()
     return element_list
 
 
