@@ -1,16 +1,21 @@
 from selenium import webdriver
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 import pickle
+import time
 
 options = webdriver.ChromeOptions()
 options.add_argument("--ignore-certificate-errors")
 options.add_argument("--window-size=1920,1080")
 options.add_argument("--disable-blink-features=AutomationControlled")
+options.add_argument(
+    "--user-agent=Mozilla/5.0 (Windows NT 10.0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36")
 options.add_experimental_option("excludeSwitches", ["enable-automation"])
 options.add_experimental_option('useAutomationExtension', False)
 
-
 driver = webdriver.Chrome(options=options)
 driver.execute_script("Object.defineProperty(navigator, 'webdriver', {get: () => undefined})")
+wait = WebDriverWait(driver, timeout=10, poll_frequency=1)
 # task№1
 # driver.get("https://vk.com/")
 # driver.add_cookie({
@@ -22,13 +27,22 @@ driver.execute_script("Object.defineProperty(navigator, 'webdriver', {get: () =>
 # print(driver.get_cookie("username")["value"])
 
 # task№2
-driver.get("https://tochka.com/")
-cookies = driver.get_cookies()
-print(cookies)
-# deleted_cookie_name = driver.get_cookie("NID")
-# print(deleted_cookie_name)
-# driver.delete_cookie("ipp_key")
-driver.delete_all_cookies()
-driver.refresh()
-print(driver.get_cookies())
-# input()
+# driver.get("https://vk.com/")
+# deleted_cookie_name = "domain_sid"
+# driver.delete_cookie(deleted_cookie_name)
+# driver.refresh()
+# assert deleted_cookie_name not in driver.get_cookies(), "кука не удалена"
+
+# task№3
+driver.get("https://obi.ru/")
+ITEM_1 = ("xpath", "(//span[text()='В корзину'])[1]")
+ITEM_2 = ("xpath", "(//span[text()='В корзину'])[2]")
+
+wait.until(EC.element_to_be_clickable(ITEM_1)).click()
+wait.until(EC.element_to_be_clickable(ITEM_2)).click()
+
+input()
+
+
+
+time.sleep(5)
