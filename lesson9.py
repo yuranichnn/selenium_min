@@ -53,20 +53,19 @@ def is_elem_choose(web_element) -> bool:
     else:
         return False
 
-
-random_element_1 = choose_random_element(get_table_elements(TABLE))
-random_element_2 = choose_random_element(get_table_elements(TABLE))
+table_elements = get_table_elements(TABLE)
+random_element_1 = choose_random_element(table_elements)
+random_element_2 = choose_random_element(table_elements)
 wait.until(EC.element_to_be_clickable(random_element_1)).click()
 wait.until(EC.element_to_be_clickable(random_element_2)).click()
-time.sleep(3)
 assert is_elem_choose(random_element_1), "элемент не выбран"
 assert is_elem_choose(random_element_2), "элемент не выбран"
 wait.until(EC.element_to_be_clickable(random_element_1)).click()
 wait.until(EC.element_to_be_clickable(random_element_2)).click()
-time.sleep(3)
 assert not is_elem_choose(random_element_1), "элемент выбран"
 assert not is_elem_choose(random_element_2), "элемент выбран"
 
+driver.close()
 
 
 
